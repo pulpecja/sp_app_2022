@@ -2,8 +2,9 @@
 
 class LogParser
   require_relative 'page_view'
+  require_relative 'page_views_counter'
   require_relative 'validators/file_name_validator'
-  require 'pry'
+  require_relative 'presenters/page_views_counter_presenter'
 
   class FileSyntaxError < StandardError; end
 
@@ -13,14 +14,26 @@ class LogParser
 
   def call
     validate_file
+    counter = PageViewsCounter.new
 
     File.open(@file_name).each do |line|
       page_view = PageView.new(line)
       raise FileSyntaxError, 'File is invalid.' unless page_view.valid?
+
+      counter.add_page_visit(page_view)
     end
+
+    print_output(counter)
   end
 
   private
+
+  def print_output(counter)
+    presenter = PageViewsCounterPresenter.new(counter)
+    presenter.most_page_views
+    puts ''
+    presenter.most_unique_page_views
+  end
 
   def validate_file
     unless Validators::FileNameValidator.new.file_name_exists?(@file_name)

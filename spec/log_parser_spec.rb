@@ -53,9 +53,26 @@ describe LogParser do
 
     context 'for valid file' do
       let(:file_name) { 'spec/data/valid_webserver.log' }
+      let(:expected_output) do
+        <<~HEREDOC
+          Most page views:
+          /contact 4 visits
+          /home 1 visit
+          /help_page/1 1 visit
+
+          Most unique page views:
+          /contact 2 visits
+          /home 1 visit
+          /help_page/1 1 visit
+        HEREDOC
+      end
 
       it 'do not raise any errors' do
         expect { call }.not_to raise_error
+      end
+
+      it 'prints output' do
+        expect { call }.to output(expected_output).to_stdout
       end
     end
   end
