@@ -3,8 +3,6 @@
 require_relative 'validators/page_view_validator'
 
 class PageView
-  class FileSyntaxError < StandardError; end
-
   attr_reader :url, :ip
 
   def initialize(page_view_string)

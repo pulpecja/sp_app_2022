@@ -2,7 +2,6 @@
 
 module Validators
   class PageViewValidator
-    require 'pry'
     URL_REGEX = %r{^/\S*}
     IP_REGEX = /(\d{3}\.){3}\d{3}/
 

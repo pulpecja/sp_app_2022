@@ -5,6 +5,8 @@ class LogParser
   require_relative 'validators/file_name_validator'
   require 'pry'
 
+  class FileSyntaxError < StandardError; end
+
   def initialize(file_name)
     @file_name = file_name
   end
@@ -14,6 +16,7 @@ class LogParser
 
     File.open(@file_name).each do |line|
       page_view = PageView.new(line)
+      raise FileSyntaxError, 'File is invalid.' unless page_view.valid?
     end
   end
 

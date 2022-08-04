@@ -42,5 +42,21 @@ describe LogParser do
 
       include_examples 'raises ArgumentError with message'
     end
+
+    context 'for invalid file syntax' do
+      let(:file_name) { 'spec/data/invalid_webserver.log' }
+
+      it 'raises FileSyntaxError' do
+        expect { call }.to raise_error(LogParser::FileSyntaxError, 'File is invalid.')
+      end
+    end
+
+    context 'for valid file' do
+      let(:file_name) { 'spec/data/valid_webserver.log' }
+
+      it 'do not raise any errors' do
+        expect { call }.not_to raise_error
+      end
+    end
   end
 end
