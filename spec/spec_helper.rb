@@ -15,9 +15,10 @@
 # See https://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
 require_relative '../lib/log_parser.rb'
+require_relative '../lib/page_views_counter.rb'
 require_relative '../lib/validators/file_name_validator.rb'
 require_relative '../lib/validators/page_view_validator.rb'
-
+require_relative '../lib/presenters/page_views_counter_presenter.rb'
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
