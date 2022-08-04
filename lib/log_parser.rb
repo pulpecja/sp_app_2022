@@ -11,6 +11,10 @@ class LogParser
 
   def call
     validate_file
+
+    File.open(@file_name).each do |line|
+      page_view = PageView.new(line)
+    end
   end
 
   private

@@ -9,13 +9,9 @@ class PageView
 
   def initialize(page_view_string)
     @url, @ip = page_view_string.split
-
-    validate_page_view
   end
 
-  private
-
-  def validate_page_view
-    raise FileSyntaxError, 'Your file is invalid.' unless ::Validators::PageViewValidator.new.valid?(self)
+  def valid?
+    Validators::PageViewValidator.new.valid?(self)
   end
 end

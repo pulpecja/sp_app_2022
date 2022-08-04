@@ -16,6 +16,7 @@
 
 require_relative '../lib/log_parser.rb'
 require_relative '../lib/validators/file_name_validator.rb'
+require_relative '../lib/validators/page_view_validator.rb'
 
 
 RSpec.configure do |config|
