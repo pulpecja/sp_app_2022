@@ -31,7 +31,7 @@ class LogParser
   def print_output(counter)
     presenter = PageViewsCounterPresenter.new(counter)
     presenter.most_page_views
-    puts ''
+    presenter.empty_line
     presenter.most_unique_page_views
   end
 

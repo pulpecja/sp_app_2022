@@ -21,6 +21,10 @@ class PageViewsCounterPresenter
     print_output(views)
   end
 
+  def empty_line
+    puts ''
+  end
+
   private
 
   def count_most_page_views(pages_views)
