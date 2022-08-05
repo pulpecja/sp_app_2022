@@ -9,6 +9,7 @@ describe LogParser do
     let(:file_name) { 'file_name' }
     let(:file_existence) { true }
     let(:file_name_existence) { true }
+    let(:validator) { Validators::FileNameValidator }
 
     shared_examples 'raises ArgumentError with message' do
       it 'raises ArgumentError' do
@@ -17,14 +18,10 @@ describe LogParser do
     end
 
     before do
-      allow(Validators::FileNameValidator)
-        .to receive_message_chain(:new, :file_exists?)
-        .with(file_name)
-        .and_return(file_existence)
-      allow(Validators::FileNameValidator)
-        .to receive_message_chain(:new, :file_name_exists?)
-        .with(file_name)
-        .and_return(file_name_existence)
+      double = instance_double(validator)
+      allow(validator).to receive(:new).and_return(double)
+      allow(double).to receive(:file_exists?).with(file_name).and_return(file_existence)
+      allow(double).to receive(:file_name_exists?).with(file_name).and_return(file_name_existence)
     end
 
     context 'for invalid file name' do
@@ -67,7 +64,7 @@ describe LogParser do
         HEREDOC
       end
 
-      it 'do not raise any errors' do
+      it 'does not raise any errors' do
         expect { call }.not_to raise_error
       end
 

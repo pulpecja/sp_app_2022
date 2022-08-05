@@ -9,7 +9,7 @@ describe PageView do
     context 'with valid page_view_string' do
       let(:page_view_string) { '/help_page/1 126.318.035.038' }
 
-      it 'creates Page View with valid attributes' do
+      it 'creates PageView with valid attributes' do
         expect(page_view.url).to eq '/help_page/1'
         expect(page_view.ip).to eq '126.318.035.038'
       end
@@ -19,10 +19,12 @@ describe PageView do
   describe '#valid?' do
     subject { described_class.new('page_view').valid? }
 
+    let(:validator) { Validators::PageViewValidator }
+
     before do
-      allow(Validators::PageViewValidator)
-        .to receive_message_chain(:new, :valid?)
-        .and_return(page_view_validity)
+      double = instance_double(validator)
+      allow(validator).to receive(:new).and_return(double)
+      allow(double).to receive(:valid?).and_return(page_view_validity)
     end
 
     context 'for valid validator response' do
