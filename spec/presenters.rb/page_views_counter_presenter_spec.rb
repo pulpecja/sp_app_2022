@@ -48,4 +48,12 @@ describe PageViewsCounterPresenter do
       expect { most_unique_page_views }.to output(expected_output).to_stdout
     end
   end
+
+  describe '#empty_line' do
+    subject(:empty_line) { presenter.empty_line }
+
+    it 'prints empty line' do
+      expect { empty_line }.to output("\n").to_stdout
+    end
+  end
 end
